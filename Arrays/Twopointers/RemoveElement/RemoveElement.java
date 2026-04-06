@@ -1,4 +1,4 @@
-package Arrays.Twopointers;
+package Arrays.Twopointers.RemoveElement;
 
 public class RemoveElement {
 
