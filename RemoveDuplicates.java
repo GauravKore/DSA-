@@ -1,33 +1,22 @@
-import java.util.*;
-
-public class RemoveDuplicates {
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Enter number of elements: ");
-        int n = sc.nextInt();
-
-        int arr[] = new int[n];
-
-        System.out.println("Enter sorted array elements:");
-        for(int i = 0; i < n; i++){
-            arr[i] = sc.nextInt();
-        }
-
-        int i = 0;
-
-        for(int j = 1; j < n; j++){
-            if(arr[j] != arr[i]){
-                i++;
-                arr[i] = arr[j];
+class RemoveDuplicates {
+    public int removeDuplicates(int[] nums) {
+        int j = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i - 1]) {
+                nums[j] = nums[i];
+                j++;
             }
         }
+        return j;
+    }
 
-        System.out.println("Array after removing duplicates:");
-
-        for(int k = 0; k <= i; k++){
-            System.out.print(arr[k] + " ");
+    public static void main(String args[]) {
+        int[] nums = { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 };
+        int k = new RemoveDuplicates().removeDuplicates(nums);
+        System.out.println("Number of unique elements: " + k);
+        System.out.print("Array after removing duplicates: ");
+        for (int i = 0; i < k; i++) {
+            System.out.print(nums[i] + " ");
         }
     }
 }
