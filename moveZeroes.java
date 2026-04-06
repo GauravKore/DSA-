@@ -1,3 +1,5 @@
+import Twopointers.TwoSum.Solution;
+
 class Solution {
     public void moveZeroes(int[] nums) {
         int k = 0 ;
