@@ -1,6 +1,6 @@
 import RemoveDuplicates;
 
-package Twopointers.TwoSum;
+package Arrays.Twopointers.TwoSum;
 class Solution {
     public int removeDuplicates(int[] nums) {
         if(nums.length<=2){
