@@ -1,147 +1,78 @@
-# 🔄 Remove Duplicates from Sorted Array II
+# 🔢 Two Sum Problem (Brute Force)
 
-## 🔗 Problem Link
-👉 [LeetCode Problem](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/)
+## 📌 Problem Statement
 
----
+Given an array of integers `nums` and an integer `target`, return the indices of two numbers such that they add up to the target.
 
-## 📌 Topic
-Arrays → Two Pointers
+👉 You can assume that each input has exactly one solution.
 
 ---
 
-## 🧠 Problem Statement
-Given a sorted array `nums`, remove duplicates **in-place** such that each element appears **at most twice**.
+## 💡 Example
 
-- Return the number of valid elements `k`
-- Maintain the same order
-- Only the first `k` elements are considered valid
+**Input:**
 
----
-
-## 💡 Approach (Two Pointer Technique)
-
-### 🔑 Key Idea
-Since the array is sorted, duplicates are adjacent.
-
-We allow **maximum 2 occurrences**, so:
-- Start checking from index `2`
-- Compare current element with `nums[k - 2]`
-
-### ✅ Condition
 ```
-nums[i] != nums[k - 2]
+nums = [2, 7, 11, 15]
+target = 9
 ```
 
-👉 If true → element is valid → place it at index `k`
+**Output:**
+
+```
+Indices: 0 1
+```
 
 ---
 
-## ⚙️ Code (Java)
+## 🚀 Approach (Brute Force)
+
+* Use two loops to check every pair
+* Compare sum of each pair with target
+* If match found → print indices and stop
+
+---
+
+## ⏱ Time & Space Complexity
+
+* **Time Complexity:** O(n²)
+* **Space Complexity:** O(1)
+
+---
+
+## 💻 Java Code
 
 ```java
-class Solution {
-    public int removeDuplicates(int[] nums) {
-        if(nums.length <= 2){
-            return nums.length;
-        }
+public class Twosumexample{
+    public static void main(String[] args) {
+        int nums[] = {2 , 7 , 11 , 15 };
+        int target = 9 ;
+        int n = nums.length ;
 
-        int k = 2;
-        for(int i = 2; i < nums.length; i++){
-            if(nums[i] != nums[k - 2]){
-                nums[k] = nums[i];
-                k++;
+        for(int i = 0 ; i < n ; i++){
+            for ( int j = i+1 ; j < n ; j++){
+                if ( nums[i] + nums[j] == target){
+                       System.out.println("Indices: " + i + " " + j);
+                       return ;
+                }
             }
         }
-        return k;
     }
 }
 ```
 
 ---
 
-## ▶️ Example
+## 📚 Key Points
 
-**Input:**
-```
-[1,1,1,2,2,3]
-```
-
-**Output:**
-```
-k = 5
-nums = [1,1,2,2,3,_]
-```
+* Simple and easy to understand
+* Works for small inputs
+* Not efficient for large arrays
 
 ---
 
-## ⏱️ Complexity
+## 🔥 Future Improvement
 
-| Type | Value |
-|------|------|
-| 🕒 Time Complexity | O(n) |
-| 💾 Space Complexity | O(1) |
+👉 Use **HashMap** to reduce time complexity to **O(n)**
 
 ---
-
-## 🚀 Key Points
-
-- In-place modification (no extra array)
-- Works only because array is **sorted**
-- Allows maximum **2 duplicates**
-- Efficient and optimal solution
-
----
-
-## 🧪 Dry Run (Quick)
-
-| i | nums[i] | nums[k-2] | Action |
-|---|--------|-----------|--------|
-| 2 | 1 | 1 | Skip |
-| 3 | 2 | 1 | Keep |
-| 4 | 2 | 1 | Keep |
-| 5 | 3 | 2 | Keep |
-
----
-
-## 🧩 Revision Trick (Very Important 🔥)
-
-👉 Remember this line:
-```
-nums[i] != nums[k - 2]
-```
-
-👉 Meaning:
-- Compare with **2 steps back**
-- Ensures max **2 duplicates**
-
-### 🧠 Shortcut to Recall
-> "Allow 2 → Compare with k-2"
-
----
-
-## 🎯 When to Use This Pattern?
-
-Use this approach when:
-- Array is **sorted**
-- Need to **limit duplicates (k times)**
-- Solve using **two pointers + in-place update**
-
----
-
-## 📖 Conclusion
-
-This is a classic **two-pointer problem** that teaches:
-- Efficient array traversal
-- In-place modification
-- Interview-ready optimization
-
----
-
-## ⭐ Bonus
-
-👉 You can extend this logic:
-- Allow **k duplicates** → compare with `nums[k - k]`
-
----
-
