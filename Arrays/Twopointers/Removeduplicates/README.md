@@ -1,147 +1,228 @@
-# 🔄 Remove Duplicates from Sorted Array II
+# 🚀 LeetCode 26 - Remove Duplicates from Sorted Array
 
-## 🔗 Problem Link
-👉 [LeetCode Problem](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/)
+![Java](https://img.shields.io/badge/Language-Java-orange)
+![Difficulty](https://img.shields.io/badge/Difficulty-Easy-brightgreen)
+![Status](https://img.shields.io/badge/Status-Solved-success)
 
----
-
-## 📌 Topic
-Arrays → Two Pointers
+🔗 **Problem Link:** https://leetcode.com/problems/remove-duplicates-from-sorted-array/
 
 ---
 
-## 🧠 Problem Statement
-Given a sorted array `nums`, remove duplicates **in-place** such that each element appears **at most twice**.
+## 📖 Problem Statement
 
-- Return the number of valid elements `k`
-- Maintain the same order
-- Only the first `k` elements are considered valid
+Given a **sorted integer array** `nums`, remove the duplicates **in-place** such that each unique element appears only once.
 
----
+Return the number of unique elements (`k`).
 
-## 💡 Approach (Two Pointer Technique)
+The relative order of the elements should remain the same.
 
-### 🔑 Key Idea
-Since the array is sorted, duplicates are adjacent.
+### Example
 
-We allow **maximum 2 occurrences**, so:
-- Start checking from index `2`
-- Compare current element with `nums[k - 2]`
-
-### ✅ Condition
-```
-nums[i] != nums[k - 2]
+**Input**
+```text
+nums = [1,1,2]
 ```
 
-👉 If true → element is valid → place it at index `k`
+**Output**
+```text
+k = 2
+nums = [1,2,_]
+```
+
+**Explanation**
+
+The first `k` elements contain the unique values `[1,2]`. The remaining elements are not important.
 
 ---
 
-## ⚙️ Code (Java)
+## 💡 Intuition
+
+- Since the array is already sorted, duplicate elements are adjacent.
+- Keep one pointer pointing to the last unique element.
+- Traverse the array using another pointer.
+- Whenever a new unique element is found, place it after the last unique element.
+
+---
+
+## 🚀 Approach 1 - Brute Force
+
+### Idea
+
+Store all unique elements in another array or list and then copy them back into the original array.
+
+### Algorithm
+
+1. Create a temporary array/list.
+2. Traverse the array.
+3. Store only unique elements.
+4. Copy them back into `nums`.
+5. Return the number of unique elements.
+
+### Complexity
+
+| Time | Space |
+|------|-------|
+| O(n) | O(n) |
+
+---
+
+## ⭐ Approach 2 - Optimal (Two Pointers)
+
+### Idea
+
+Use two pointers:
+
+- `k` keeps track of the last unique element.
+- `i` scans the array.
+
+Whenever `nums[i]` is different from the previous element, place it at `nums[++k]`.
+
+### Data Structure
+
+- Array
+- Two Pointers
+
+### Algorithm
+
+1. If the array is empty, return `0`.
+2. Initialize `k = 0`.
+3. Traverse from index `1`.
+4. If `nums[i] != nums[i-1]`:
+   - Increment `k`.
+   - Store `nums[i]` at `nums[k]`.
+5. Return `k + 1`.
+
+### Complexity
+
+| Time | Space |
+|------|-------|
+| O(n) | O(1) |
+
+---
+
+## 🔍 Dry Run
+
+Input
+
+```text
+[1,1,2,2,3,4,4]
+```
+
+| Step | i | k | Action | Array |
+|------|---|---|--------|----------------|
+| Start | - | 0 | Initial | [1,1,2,2,3,4,4] |
+| 1 | 1 | 0 | Duplicate → Ignore | [1,1,2,2,3,4,4] |
+| 2 | 2 | 1 | Store 2 | [1,2,2,2,3,4,4] |
+| 3 | 3 | 1 | Duplicate → Ignore | [1,2,2,2,3,4,4] |
+| 4 | 4 | 2 | Store 3 | [1,2,3,2,3,4,4] |
+| 5 | 5 | 3 | Store 4 | [1,2,3,4,3,4,4] |
+| 6 | 6 | 3 | Duplicate → Ignore | [1,2,3,4,3,4,4] |
+
+Final Answer
+
+```text
+k = 4
+
+nums = [1,2,3,4,...]
+```
+
+---
+
+## ⚠️ Edge Cases
+
+- Empty array
+- Single element
+- All elements are unique
+- All elements are duplicates
+- Large input size
+
+---
+
+## ❌ Common Mistakes
+
+- Starting the loop from index `0`.
+- Forgetting to return `k + 1`.
+- Using extra space in the optimal solution.
+- Forgetting the array is already sorted.
+
+---
+
+## 📚 Concepts Used
+
+- ✅ Arrays
+- ✅ Two Pointers
+- ✅ In-place Algorithm
+
+---
+
+## 📈 Complexity Analysis
+
+| Approach | Time | Space |
+|----------|------|-------|
+| Brute Force | O(n) | O(n) |
+| Optimal | O(n) | O(1) |
+
+---
+
+## 💻 Java Solution
 
 ```java
 class Solution {
     public int removeDuplicates(int[] nums) {
-        if(nums.length <= 2){
-            return nums.length;
-        }
 
-        int k = 2;
-        for(int i = 2; i < nums.length; i++){
-            if(nums[i] != nums[k - 2]){
-                nums[k] = nums[i];
+        if (nums.length == 0)
+            return 0;
+
+        int k = 0;
+
+        for (int i = 1; i < nums.length; i++) {
+
+            if (nums[i] != nums[i - 1]) {
+
                 k++;
+                nums[k] = nums[i];
             }
         }
-        return k;
+
+        return k + 1;
     }
 }
 ```
 
 ---
 
-## ▶️ Example
+## 📂 Folder Structure
 
-**Input:**
-```
-[1,1,1,2,2,3]
-```
-
-**Output:**
-```
-k = 5
-nums = [1,1,2,2,3,_]
+```text
+Arrays/
+└── TwoPointers/
+    └── RemoveDuplicatesFromSortedArray/
+        ├── Solution.java
+        └── README.md
 ```
 
 ---
 
-## ⏱️ Complexity
+## 🔗 Related Problems
 
-| Type | Value |
-|------|------|
-| 🕒 Time Complexity | O(n) |
-| 💾 Space Complexity | O(1) |
-
----
-
-## 🚀 Key Points
-
-- In-place modification (no extra array)
-- Works only because array is **sorted**
-- Allows maximum **2 duplicates**
-- Efficient and optimal solution
+- Remove Element
+- Move Zeroes
+- Merge Sorted Array
+- Sort Array By Parity
+- Remove Duplicates from Sorted Array II
 
 ---
 
-## 🧪 Dry Run (Quick)
+## 🏷️ Tags
 
-| i | nums[i] | nums[k-2] | Action |
-|---|--------|-----------|--------|
-| 2 | 1 | 1 | Skip |
-| 3 | 2 | 1 | Keep |
-| 4 | 2 | 1 | Keep |
-| 5 | 3 | 2 | Keep |
+`Array` `Two Pointers` `In-place` `Sorting` `Java` `LeetCode`
 
 ---
 
-## 🧩 Revision Trick (Very Important 🔥)
+## 👨‍💻 Author
 
-👉 Remember this line:
-```
-nums[i] != nums[k - 2]
-```
+**Gaurav Kore**
 
-👉 Meaning:
-- Compare with **2 steps back**
-- Ensures max **2 duplicates**
+🔗 GitHub: https://github.com/GauravKore
 
-### 🧠 Shortcut to Recall
-> "Allow 2 → Compare with k-2"
-
----
-
-## 🎯 When to Use This Pattern?
-
-Use this approach when:
-- Array is **sorted**
-- Need to **limit duplicates (k times)**
-- Solve using **two pointers + in-place update**
-
----
-
-## 📖 Conclusion
-
-This is a classic **two-pointer problem** that teaches:
-- Efficient array traversal
-- In-place modification
-- Interview-ready optimization
-
----
-
-## ⭐ Bonus
-
-👉 You can extend this logic:
-- Allow **k duplicates** → compare with `nums[k - k]`
-
----
-
+⭐ If you found this solution helpful, consider starring the repository!
