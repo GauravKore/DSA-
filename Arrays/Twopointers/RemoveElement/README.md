@@ -1,44 +1,175 @@
-# 🔹 27. Remove Element
+# 🚀 LeetCode 27 - Remove Element
 
-## 🔗 Problem Link
-https://leetcode.com/problems/remove-element/
+![Java](https://img.shields.io/badge/Language-Java-orange)
+![Difficulty](https://img.shields.io/badge/Difficulty-Easy-brightgreen)
+![Status](https://img.shields.io/badge/Status-Solved-success)
 
----
-
-## 🧠 Problem Statement
-Given an integer array `nums` and an integer `val`, remove all occurrences of `val` **in-place**.
-
-- Return the number of elements `k` which are **not equal to val**
-- First `k` elements should contain valid values
-- Order **can change**
-- Remaining elements are not important
+🔗 **Problem Link:** https://leetcode.com/problems/remove-element/
 
 ---
 
-## 💡 Approach (Two Pointer)
+## 📖 Problem Statement
 
-### Idea:
-- Use two pointers:
-  - `i` → traverse array
-  - `k` → place valid elements
+Given an integer array `nums` and an integer `val`, remove all occurrences of `val` **in-place** and return the number of remaining elements. The relative order of the remaining elements may change.
 
 ---
 
-## 🔹 Step-by-Step Algorithm
-1. Initialize `k = 0`
-2. Traverse array from `i = 0` to `n-1`
-3. If `nums[i] != val`:
-   - Assign `nums[k] = nums[i]`
-   - Increment `k`
-4. Return `k`
+## 💡 Example
+
+### Input
+
+```text
+nums = [3,2,2,3]
+val = 3
+```
+
+### Output
+
+```text
+2
+```
+
+### Explanation
+
+After removing all occurrences of `3`, the array becomes:
+
+```text
+[2,2]
+```
+
+The function returns `2`.
 
 ---
 
-## ✍️ Code (Java)
+## 💡 Intuition
+
+- Traverse the array once.
+- Keep only the elements that are **not equal** to `val`.
+- Store them from the beginning of the array using a pointer.
+- Return the count of valid elements.
+
+---
+
+## 🚀 Approach 1 - Brute Force
+
+### Idea
+
+Create a new array and copy only the elements that are not equal to `val`.
+
+### Algorithm
+
+1. Create a new array.
+2. Traverse the original array.
+3. Copy valid elements.
+4. Return the count.
+
+### Complexity
+
+| Time | Space |
+|------|-------|
+| O(n) | O(n) |
+
+---
+
+## ⭐ Approach 2 - Optimal (Two Pointers)
+
+### Idea
+
+Use one pointer (`i`) to traverse the array and another pointer (`k`) to place valid elements at the beginning of the array.
+
+### Data Structure
+
+- Array
+- Two Pointers
+
+### Algorithm
+
+1. Initialize `k = 0`.
+2. Traverse the array.
+3. If `nums[i] != val`, assign `nums[k] = nums[i]`.
+4. Increment `k`.
+5. Return `k`.
+
+### Complexity
+
+| Time | Space |
+|------|-------|
+| O(n) | O(1) |
+
+---
+
+## 🔍 Dry Run
+
+Input
+
+```text
+nums = [3,2,2,3]
+val = 3
+```
+
+| i | nums[i] | Action | k |
+|---|---------|--------|---|
+|0|3|Skip|0|
+|1|2|Store at nums[0]|1|
+|2|2|Store at nums[1]|2|
+|3|3|Skip|2|
+
+Final Array
+
+```text
+[2,2,_,_]
+```
+
+Return
+
+```text
+2
+```
+
+---
+
+## ⚠️ Edge Cases
+
+- Empty array
+- All elements equal to `val`
+- No element equal to `val`
+- Single-element array
+- Duplicate values
+
+---
+
+## ❌ Common Mistakes
+
+- Returning the modified array instead of its length.
+- Forgetting to increment the write pointer.
+- Comparing the wrong value.
+- Using extra space when an in-place solution is required.
+
+---
+
+## 📚 Concepts Used
+
+- ✅ Arrays
+- ✅ Two Pointers
+- ✅ In-place Modification
+
+---
+
+## 📈 Complexity Analysis
+
+| Approach | Time | Space |
+|----------|------|-------|
+| Brute Force | O(n) | O(n) |
+| Optimal | O(n) | O(1) |
+
+---
+
+## 💻 Java Solution
 
 ```java
 class Solution {
     public int removeElement(int[] nums, int val) {
+
         int k = 0;
 
         for (int i = 0; i < nums.length; i++) {
@@ -47,36 +178,46 @@ class Solution {
                 k++;
             }
         }
+
         return k;
     }
 }
-🔍 Dry Run
-Input:
+```
 
-nums = [3,2,2,3], val = 3
+---
 
-Steps:
-i	nums[i]	Action	k	Array
-0	3	skip	0	[3,2,2,3]
-1	2	nums[0]=2	1	[2,2,2,3]
-2	2	nums[1]=2	2	[2,2,2,3]
-3	3	skip	2	[2,2,2,3]
-✅ Output
+## 📂 Folder Structure
 
-k = 2
-nums = [2,2,...]
+```text
+Arrays/
+└── TwoPointers/
+    └── RemoveElement/
+        ├── Solution.java
+        └── README.md
+```
 
-⏱️ Time & Space Complexity
-Time Complexity: O(n)
-Space Complexity: O(1) (in-place)
-🔥 Key Points (Quick Revision)
-Two Pointer Pattern
-Works in-place (no extra memory)
-Similar Problems:
-Move Zeroes
-Remove Duplicates
-⚡ Easy Trick to Remember
+---
 
-👉 “Keep elements NOT equal to val, skip rest”
+## 🔗 Related Problems
 
+- [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+- [80. Remove Duplicates from Sorted Array II](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/)
+- [88. Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
+- [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/)
+- [977. Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/)
 
+---
+
+## 🏷️ Tags
+
+`Array` `Two Pointers` `In-place` `Easy` `Java` `LeetCode`
+
+---
+
+## 👨‍💻 Author
+
+**Gaurav Kore**
+
+🔗 GitHub: https://github.com/GauravKore
+
+⭐ If you found this solution helpful, consider giving the repository a **star**!
