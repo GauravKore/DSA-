@@ -1,59 +1,189 @@
-# 🚀 Move Zeroes
+# 🚀 LeetCode 283 - Move Zeroes
 
-## 🔗 Problem Link
-👉 [LeetCode Problem](https://leetcode.com/problems/move-zeroes/)
+![Java](https://img.shields.io/badge/Language-Java-orange)
+![Difficulty](https://img.shields.io/badge/Difficulty-Easy-brightgreen)
+![Status](https://img.shields.io/badge/Status-Solved-success)
 
----
-
-## 📌 Topic
-Arrays → Two Pointers
+🔗 **Problem Link:** https://leetcode.com/problems/move-zeroes/
 
 ---
 
-## 🧠 Problem Statement
-Given an integer array `nums`, move all `0`s to the end of the array while maintaining the **relative order of non-zero elements**.
+# 📖 Problem Statement
 
-- Perform the operation **in-place**
-- Do not use extra space
+Given an integer array `nums`, move all `0`s to the end of the array while maintaining the relative order of the non-zero elements.
+
+You must do this **in-place** without making a copy of the array.
+
+### Example
+
+**Input**
+```text
+nums = [0,1,0,3,12]
+```
+
+**Output**
+```text
+[1,3,12,0,0]
+```
+
+**Explanation**
+
+All non-zero elements remain in their original order, and all zeroes are moved to the end.
 
 ---
 
-## 💡 Approach (Two Pointer Technique)
+# 💡 Intuition
 
-### 🔑 Key Idea
-- Move all **non-zero elements to the front**
-- Fill remaining positions with `0`
-
----
-
-### 🪜 Steps
-1. Use pointer `k = 0`
-2. Traverse array:
-   - If element ≠ 0 → place at `nums[k]`, increment `k`
-3. After loop:
-   - Fill remaining positions with `0`
+- Zeroes don't need to stay where they are.
+- Keep all non-zero elements at the beginning.
+- Fill the remaining positions with zeroes.
+- Since the operation must be in-place, use the Two Pointer technique.
 
 ---
 
-## ⚙️ Code (Java)
+# 🚀 Approach 1 - Brute Force
+
+## Idea
+
+Create a new array.
+
+- Copy all non-zero elements.
+- Fill the remaining positions with zeroes.
+- Copy the result back into the original array.
+
+## Algorithm
+
+1. Create a temporary array.
+2. Traverse the original array.
+3. Store all non-zero elements.
+4. Fill remaining positions with zeroes.
+5. Copy back to the original array.
+
+## Complexity
+
+| Time | Space |
+|------|-------|
+| O(n) | O(n) |
+
+---
+
+# ⭐ Approach 2 - Optimal (Two Pointers)
+
+## Idea
+
+Maintain a pointer `k` that always points to the position where the next non-zero element should be placed.
+
+Whenever a non-zero element is found:
+
+- Swap it with `nums[k]`.
+- Increment `k`.
+
+This automatically moves all zeroes towards the end.
+
+## Data Structure
+
+- Array
+- Two Pointers
+
+## Algorithm
+
+1. Initialize `k = 0`.
+2. Traverse the array.
+3. If the current element is non-zero:
+   - Swap `nums[i]` with `nums[k]`.
+   - Increment `k`.
+4. Continue until the end.
+
+## Complexity
+
+| Time | Space |
+|------|-------|
+| O(n) | O(1) |
+
+---
+
+# 🔍 Dry Run
+
+Input
+
+```text
+[0,1,0,3,12]
+```
+
+| Step | i | k | Array |
+|------|---|---|----------------|
+| Start | - | 0 | [0,1,0,3,12] |
+| 1 | 0 | 0 | Zero → Ignore |
+| 2 | 1 | 0 | Swap → [1,0,0,3,12] |
+| 3 | 2 | 1 | Zero → Ignore |
+| 4 | 3 | 1 | Swap → [1,3,0,0,12] |
+| 5 | 4 | 2 | Swap → [1,3,12,0,0] |
+
+Final Answer
+
+```text
+[1,3,12,0,0]
+```
+
+---
+
+# ⚠️ Edge Cases
+
+- Empty array
+- Single element
+- All elements are zero
+- No zero present
+- Zero at the beginning
+- Zero at the end
+- Multiple consecutive zeroes
+
+---
+
+# ❌ Common Mistakes
+
+- Creating another array in the optimal solution.
+- Forgetting to increment `k`.
+- Swapping every element instead of only non-zero elements.
+- Losing the relative order of non-zero elements.
+
+---
+
+# 📚 Concepts Used
+
+- ✅ Arrays
+- ✅ Two Pointers
+- ✅ In-place Algorithm
+- ✅ Swapping
+
+---
+
+# 📈 Complexity Analysis
+
+| Approach | Time | Space |
+|----------|------|-------|
+| Brute Force | O(n) | O(n) |
+| Optimal | O(n) | O(1) |
+
+---
+
+# 💻 Java Solution
 
 ```java
 class Solution {
     public void moveZeroes(int[] nums) {
+
         int k = 0;
 
-        // Step 1: Move non-zero elements forward
-        for(int i = 0; i < nums.length; i++){
-            if(nums[i] != 0){
-                nums[k] = nums[i];
+        for (int i = 0; i < nums.length; i++) {
+
+            if (nums[i] != 0) {
+
+                int temp = nums[i];
+                nums[i] = nums[k];
+                nums[k] = temp;
+
                 k++;
             }
-        }
-
-        // Step 2: Fill remaining positions with zero
-        while(k < nums.length){
-            nums[k] = 0;
-            k++;
         }
     }
 }
@@ -61,77 +191,38 @@ class Solution {
 
 ---
 
-## ▶️ Example
+# 📂 Folder Structure
 
-**Input:**
-```
-[0,1,0,3,12]
-```
-
-**Output:**
-```
-[1,3,12,0,0]
+```text
+Arrays/
+└── TwoPointers/
+    └── MoveZeroes/
+        ├── Solution.java
+        └── README.md
 ```
 
 ---
 
-## ⏱️ Complexity
+# 🔗 Related Problems
 
-| Type | Value |
-|------|------|
-| 🕒 Time Complexity | O(n) |
-| 💾 Space Complexity | O(1) |
-
----
-
-## 🚀 Key Points
-
-- In-place modification (no extra array)
-- Maintains order of non-zero elements
-- Efficient single traversal
-- Classic **two-pointer problem**
+- Remove Duplicates from Sorted Array
+- Remove Element
+- Sort Array By Parity
+- Squares of a Sorted Array
+- Merge Sorted Array
 
 ---
 
-## 🧪 Dry Run (Quick)
+# 🏷️ Tags
 
-| i | nums[i] | Action | Array State |
-|---|--------|--------|-------------|
-| 0 | 0 | Skip | [0,1,0,3,12] |
-| 1 | 1 | Move to front | [1,1,0,3,12] |
-| 2 | 0 | Skip | [1,1,0,3,12] |
-| 3 | 3 | Move | [1,3,0,3,12] |
-| 4 | 12 | Move | [1,3,12,3,12] |
-
-Final → Fill zeros → `[1,3,12,0,0]`
+`Array` `Two Pointers` `In-place` `Java` `LeetCode`
 
 ---
 
-## 🧩 Revision Trick (🔥 Easy Recall)
+# 👨‍💻 Author
 
-👉 Remember:
-```
-Non-zero → front  
-Zero → end
-```
+**Gaurav Kore**
 
-👉 Or:
-> "Push non-zero forward, fill rest with zero"
+🔗 GitHub: https://github.com/GauravKore
 
----
-
-## 🎯 When to Use This Pattern?
-
-Use this when:
-- Need to **rearrange array in-place**
-- Maintain **relative order**
-- Separate elements based on condition
-
----
-
-## 📖 Conclusion
-
-This problem is a simple yet important example of the **two-pointer technique** and helps in mastering in-place array manipulation.
-
----
-
+⭐ If you found this solution helpful, consider starring the repository!
