@@ -194,43 +194,13 @@ Final Answer
 
 ## 💻 Java Solution
 
-### Brute Force
-
-```java
 class Solution {
     public int[] buildArray(int[] nums) {
-
-        int n = nums.length;
-        int[] ans = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            ans[i] = nums[nums[i]];
+        int[] result = new int[nums.length];
+        for( int i = 0 ; i < nums.length; i++){
+            result[i]= nums[nums[i]];
         }
-
-        return ans;
-    }
-}
-```
-
-### Optimal (In-Place)
-
-```java
-class Solution {
-    public int[] buildArray(int[] nums) {
-
-        int n = nums.length;
-
-        // Encode old and new values
-        for (int i = 0; i < n; i++) {
-            nums[i] = nums[i] + n * (nums[nums[i]] % n);
-        }
-
-        // Decode to get the final values
-        for (int i = 0; i < n; i++) {
-            nums[i] /= n;
-        }
-
-        return nums;
+        return result;
     }
 }
 ```
